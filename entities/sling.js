@@ -9,14 +9,20 @@ export function createSling(world) {
 
   const slingBase = Bodies.rectangle(cfg.base.x, cfg.base.y, cfg.base.w, cfg.base.h, {
     isStatic: true,
-    render: { fillStyle: colors.slingBase }
+    render: { fillStyle: colors.slingBase },
+    collisionFilter: {
+      group: -1  // Negative group = no collision with same group
+    }
   });
 
   const projectile = Bodies.circle(cfg.projectile.x, cfg.projectile.y, cfg.projectile.r, {
     density: 0.001,
     frictionAir: 0.005,
     restitution: 0.8,
-    render: { fillStyle: colors.projectile }
+    render: { fillStyle: colors.projectile },
+    collisionFilter: {
+      group: -1  // Same group = no collision between slingBase and projectile
+    }
   });
 
   const slingConstraint = Constraint.create({
