@@ -3,10 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birds Test</title>
+    <title>Portfolio Interactivo - Dan Araya</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <!-- Portfolio Navigation Menu -->
+    <div id="portfolio-menu" class="portfolio-menu">
+        <p class="portfolio-subtitle">¡Derriba los cerditos para desbloquear mi portfolio!</p>
+        
+        <nav class="nav-buttons">
+            <button id="btn-proyectos" class="nav-btn locked" data-section="proyectos" disabled>
+                <span class="pig-icon">🐷</span>
+                Proyectos
+            </button>
+            <button id="btn-experiencia" class="nav-btn locked" data-section="experiencia" disabled>
+                <span class="pig-icon">🐷</span>
+                Experiencia
+            </button>
+            <button id="btn-habilidades" class="nav-btn locked" data-section="habilidades" disabled>
+                <span class="pig-icon">🐷</span>
+                Habilidades
+            </button>
+            <button id="btn-sobre-mi" class="nav-btn locked" data-section="sobre-mi" disabled>
+                <span class="pig-icon">🐷</span>
+                Sobre mí
+            </button>
+            <button id="btn-contacto" class="nav-btn locked" data-section="contacto" disabled>
+                <span class="pig-icon">🐷</span>
+                Contacto
+            </button>
+        </nav>
+        
+        <div class="progress-info">
+            <span id="unlocked-count">0</span> / 5 secciones desbloqueadas
+        </div>
+    </div>
 
     <script src="/js/matter.min.js"></script>
     <script type="module" src="/js/script.js"></script>

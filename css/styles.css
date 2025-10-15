@@ -1,2 +1,157 @@
-html, body { margin: 0; padding: 0; height: 100%; }
-canvas { display: block; }
+html, body { 
+  margin: 0; 
+  padding: 0; 
+  height: 100%; 
+  font-family: 'Arial', sans-serif;
+}
+
+canvas { 
+  display: block; 
+  background-image: url('../img/background.png');
+  background-size: cover !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Portfolio Menu Styles */
+.portfolio-menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  min-width: 280px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.portfolio-title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  text-align: center;
+}
+
+.portfolio-subtitle {
+  color: #ccc;
+  font-size: 12px;
+  margin: 0 0 15px 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border: 2px solid;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn.locked {
+  border-color: #666;
+  color: #999;
+  background: rgba(100, 100, 100, 0.2);
+  cursor: not-allowed;
+}
+
+.nav-btn.locked .pig-icon {
+  opacity: 0.6;
+}
+
+.nav-btn.unlocked {
+  border-color: #4CAF50;
+  color: #fff;
+  background: rgba(76, 175, 80, 0.2);
+  cursor: pointer;
+}
+
+.nav-btn.unlocked:hover {
+  background: rgba(76, 175, 80, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.nav-btn.unlocked .pig-icon {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.pig-icon {
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.progress-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ccc;
+  font-size: 12px;
+  text-align: center;
+}
+
+#unlocked-count {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes unlock {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% { 
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.nav-btn.unlocked {
+  animation: unlock 0.6s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .portfolio-menu {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    padding: 15px;
+  }
+  
+  .nav-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}

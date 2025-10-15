@@ -1,5 +1,6 @@
 import { GAME_CONFIG } from '../config/gameConfig.js';
 import { distance } from '../utils/helpers.js';
+import { createBird } from './birds.js';
 
 const { Engine, Render, Runner, Bodies, Composite, Constraint, Mouse, MouseConstraint, Events, Body } = Matter;
 
@@ -15,15 +16,13 @@ export function createSling(world) {
     }
   });
 
-  const projectile = Bodies.circle(cfg.projectile.x, cfg.projectile.y, cfg.projectile.r, {
-    density: 0.001,
-    frictionAir: 0.005,
-    restitution: 0.8,
-    render: { fillStyle: colors.projectile },
-    collisionFilter: {
-      group: -1  // Same group = no collision between slingBase and projectile
-    }
-  });
+  // Create the bird projectile using the birds factory
+  const projectile = createBird(
+    cfg.projectile.x,
+    cfg.projectile.y,
+    cfg.projectile.r,
+    colors.projectile
+  );
 
   const slingConstraint = Constraint.create({
     bodyA: slingBase,
