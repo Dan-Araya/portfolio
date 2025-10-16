@@ -69,6 +69,20 @@ export const GAME_CONFIG = {
     forceMultiplier: 0.0007,
     maxForce: 0.3
   },
+  birdQueue: {
+    totalBirds: 5,
+    startX: 80,  // Posición X inicial de la cola
+    startY: 470, // Posición Y de la cola (sobre el birdGround)
+    spacing: 35, // Espaciado entre pájaros
+    radius: 15,  // Radio de cada pájaro
+    colors: ['#FF4444', '#FF44AA', '#4444FF', '#44FF44', '#FFAA44'], // Orden: rojo, rosa, azul, verde, amarillo
+    waitingArea: {
+      x: 80,
+      y: 470,
+      width: 200,
+      height: 50
+    }
+  },
   woodenStructures: {
     colors: {
       plank: '#D2691E',

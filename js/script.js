@@ -1,5 +1,6 @@
 import { GAME_CONFIG } from '../config/gameConfig.js';
 import { createSling, attachMouse } from '../entities/sling.js';
+import { BirdQueue } from '../entities/birdQueue.js';
 import { 
   createSlingGround, 
   createTargetGround, 
@@ -91,19 +92,65 @@ GAME_CONFIG.level.portfolioPigs.forEach(pigConfig => {
 // Add all structures and portfolio pigs to the world
 Composite.add(world, [...woodenStructures, ...portfolioPigs]);
 
-// Sling
-const slingState = createSling(world);
+// Initialize bird queue system
+const birdQueue = new BirdQueue(world);
+
+// Sling - now works with bird queue
+const slingState = createSling(world, birdQueue);
 attachMouse(engine, render, world, slingState);
 
 // Setup collision systems
-setupBoundsReset(engine, slingState); // Detecta límites pero no resetea automáticamente
+setupBoundsReset(engine, slingState, birdQueue); // Pass birdQueue to collision system
 setupPortfolioCollisions(engine, portfolioPigs);
 
 // Setup portfolio navigation
 setupPortfolioNavigation();
 
+// Add UI for bird count
+createBirdCountUI();
+
 // Start
 startEngine(engine, render);
+
+/**
+ * Creates UI element to show remaining birds
+ */
+function createBirdCountUI() {
+  const birdCountElement = document.createElement('div');
+  birdCountElement.id = 'bird-count';
+  birdCountElement.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+  `;
+  
+  document.body.appendChild(birdCountElement);
+  
+  // Update bird count display
+  function updateBirdCount() {
+    const remaining = birdQueue.getRemainingBirds();
+    const current = birdQueue.currentBirdIndex + 1;
+    const total = GAME_CONFIG.birdQueue.totalBirds;
+    
+    if (birdQueue.isGameComplete()) {
+      birdCountElement.textContent = `🎯 ¡Juego terminado! Sin pájaros`;
+    } else {
+      birdCountElement.textContent = `🐦 Pájaro: ${current}/${total} | Restantes: ${remaining - 1}`;
+    }
+    
+    requestAnimationFrame(updateBirdCount);
+  }
+  
+  updateBirdCount();
+}
 
 /**
  * Sets up the portfolio navigation functionality

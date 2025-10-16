@@ -9,21 +9,73 @@ let portfolioState = {
   damageSystemActive: false // Flag to prevent damage during initialization
 };
 
-export function setupBoundsReset(engine, slingState) {
-  // Sistema de detección de límites desactivado
-  // En el futuro se implementará un sistema de múltiples pájaros
-  // donde cada pájaro se consume al ser lanzado sin respawn automático
-  
+export function setupBoundsReset(engine, slingState, birdQueue) {
+  // Sistema de detección de límites para pájaros lanzados
   const xMin = -50;
   const xMax = GAME_CONFIG.width + 50;
   const yMax = GAME_CONFIG.height + 50;
   
+  // Track the currently launched bird
+  let currentLaunchedBird = null;
+  let stationaryCheckTimer = null;
+  
   Events.on(engine, 'afterUpdate', () => {
-    const p = slingState.projectile.position;
-    if (p.x > xMax || p.x < xMin || p.y > yMax) {
-      // Solo log para debug, sin reset automático
-      console.log('🐦 Pájaro salió de los límites del juego');
-      // TODO: Aquí se implementará la lógica para pasar al siguiente pájaro
+    const currentProjectile = slingState.getCurrentProjectile();
+    
+    // Check if a new bird has been launched
+    if (currentProjectile && !slingState.canLaunch && !slingState.isDragging) {
+      // New bird launched
+      if (currentLaunchedBird !== currentProjectile.id) {
+        currentLaunchedBird = currentProjectile.id;
+        
+        // Clear any existing timer
+        if (stationaryCheckTimer) {
+          clearTimeout(stationaryCheckTimer);
+          stationaryCheckTimer = null;
+        }
+      }
+      
+      const p = currentProjectile.position;
+      const v = currentProjectile.velocity;
+      const isStationary = Math.abs(v.x) < 0.1 && Math.abs(v.y) < 0.1;
+      
+      // Check if bird is out of bounds
+      if (p.x > xMax || p.x < xMin || p.y > yMax) {
+        console.log('🐦 Pájaro salió de los límites');
+        currentLaunchedBird = null;
+        
+        if (!stationaryCheckTimer) {
+          stationaryCheckTimer = setTimeout(() => {
+            if (!birdQueue.isGameComplete() && slingState.canLaunch === false) {
+              slingState.loadNextBird();
+            } else if (birdQueue.isGameComplete()) {
+              console.log('🎯 ¡Todos los pájaros han sido utilizados!');
+            }
+            stationaryCheckTimer = null;
+          }, 1500);
+        }
+      }
+      // Check if bird has settled (only after being launched and moving)
+      else if (isStationary && p.y > GAME_CONFIG.height - 100) {
+        // Only start timer if bird has moved significantly from sling position
+        const slingX = GAME_CONFIG.sling.projectile.x;
+        const slingY = GAME_CONFIG.sling.projectile.y;
+        const distanceFromSling = Math.sqrt((p.x - slingX) ** 2 + (p.y - slingY) ** 2);
+        
+        if (distanceFromSling > 100 && !stationaryCheckTimer) {
+          console.log('🐦 Pájaro terminó su trayecto');
+          currentLaunchedBird = null;
+          
+          stationaryCheckTimer = setTimeout(() => {
+            if (!birdQueue.isGameComplete() && slingState.canLaunch === false) {
+              slingState.loadNextBird();
+            } else if (birdQueue.isGameComplete()) {
+              console.log('🎯 ¡Todos los pájaros han sido utilizados!');
+            }
+            stationaryCheckTimer = null;
+          }, 1500);
+        }
+      }
     }
   });
 }
