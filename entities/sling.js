@@ -26,6 +26,7 @@ export function createSling(world) {
 
   const slingConstraint = Constraint.create({
     bodyA: slingBase,
+    pointA: { x: 0, y: -cfg.base.h / 2 }, // Punto en la parte superior de la base
     bodyB: projectile,
     stiffness: cfg.stiffness,
     length: cfg.length,
@@ -79,8 +80,11 @@ export function attachMouse(engine, render, world, slingState) {
     slingState.isDragging = false;
     slingState.canLaunch = false;
 
-    const dx = slingState.slingBase.position.x - slingState.projectile.position.x;
-    const dy = slingState.slingBase.position.y - slingState.projectile.position.y;
+    // Calcular la distancia desde la parte superior de la base (punto de anclaje de la constraint)
+    const anchorX = slingState.slingBase.position.x;
+    const anchorY = slingState.slingBase.position.y - cfg.base.h / 2; // Parte superior de la base
+    const dx = anchorX - slingState.projectile.position.x;
+    const dy = anchorY - slingState.projectile.position.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist > cfg.minPullDistance) {
