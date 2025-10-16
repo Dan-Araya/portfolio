@@ -1,3 +1,5 @@
+import { GAME_CONFIG } from '../config/gameConfig.js';
+
 const { Bodies } = Matter;
 
 /**
@@ -58,7 +60,7 @@ export function createLargePig(x, y) {
  * @param {number} x - Center x position
  * @param {number} y - Center y position
  * @param {string} section - The portfolio section this pig unlocks
- * @param {string} color - Custom color for the pig
+ * @param {string} color - Custom color for the pig (used as tint for texture)
  * @param {string} emoji - Emoji label for the pig
  * @returns {Matter.Body} The portfolio pig body
  */
@@ -69,9 +71,15 @@ export function createPortfolioPig(x, y, section, color = '#FFD700', emoji = 'ðŸ
     frictionStatic: 0.5,
     restitution: 0.4,
     render: { 
+      sprite: {
+        texture: GAME_CONFIG.textures.pig.src,
+        xScale: GAME_CONFIG.textures.pig.scaleX,
+        yScale: GAME_CONFIG.textures.pig.scaleY
+      },
+      // Fallback color if texture doesn't load
       fillStyle: color,
       strokeStyle: '#333',
-      lineWidth: 3
+      lineWidth: 2
     },
     label: `portfolio-pig-${section}`
   });

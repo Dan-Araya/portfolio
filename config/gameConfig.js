@@ -7,6 +7,11 @@ export const GAME_CONFIG = {
       src: 'img/birdsGround.png',
       scaleX: 0.5,  // Ajusta estos valores para cambiar el tamaño
       scaleY: 0.3   // Valores más pequeños = imagen más pequeña
+    },
+    pig: {
+      src: 'img/cerdo.png',
+      scaleX: 0.3,  // Escala horizontal del cerdo
+      scaleY: 0.3   // Escala vertical del cerdo
     }
   },
   world: {
@@ -44,45 +49,49 @@ export const GAME_CONFIG = {
       blockSize: 25
     }
   },
-  pigs: {
-    colors: {
-      small: '#98FB98',
-      medium: '#90EE90',
-      large: '#7CFC00'
-    },
-    sizes: {
-      small: 15,
-      medium: 20,
-      large: 28
-    }
-  },
   level: {
     // Posiciones de las estructuras sobre targetGround (y=525)
     structures: [
-      // Primera torre (izquierda)
-      { type: 'pillar', x: 900, y: 495 },
-      { type: 'pillar', x: 950, y: 495 },
-      { type: 'plank', x: 925, y: 465 },
-      { type: 'block', x: 925, y: 440 },
+      // First tower
+      { type: 'pillar', x: 815, y: 495 },
+      { type: 'pillar', x: 885, y: 495 },
+      { type: 'plank', x: 850, y: 465 },
+
+      // Separation
+      { type: 'pillar', x: 920, y: 425 },
+      { type: 'block', x: 920, y: 400 },
+      { type: 'pillar', x: 950, y: 425 },
+      { type: 'block', x: 950, y: 400 },
+      { type: 'pillar', x: 980, y: 425 },
+      { type: 'block', x: 980, y: 400 },
+      { type: 'pillar', x: 1010, y: 425 },
+      { type: 'block', x: 1010, y: 400 },
+
       
-      // Segunda torre (centro)
-      { type: 'pillar', x: 1000, y: 485 },
-      { type: 'pillar', x: 1050, y: 485 },
-      { type: 'plank', x: 1025, y: 455 },
-      { type: 'pillar', x: 1025, y: 425 },
-      { type: 'block', x: 1025, y: 400 },
-      
-      // Tercera torre (derecha)
-      { type: 'pillar', x: 1100, y: 495 },
-      { type: 'pillar', x: 1150, y: 495 },
-      { type: 'plank', x: 1125, y: 465 },
-      { type: 'block', x: 1125, y: 440 }
+      // Second tower
+      { type: 'pillar', x: 1048, y: 485 },
+      { type: 'pillar', x: 1115, y: 485 },
+      { type: 'plank', x: 1082, y: 455 },
+
+      // Upper second tower
+      { type: 'pillar', x: 1050, y: 400 },
+      { type: 'pillar', x: 1115, y: 400 },
+      { type: 'plank', x: 1080, y: 350 },
+      { type: 'block', x: 1225, y: 440 }
     ],
     // Portfolio pigs - these unlock navigation buttons when destroyed
     portfolioPigs: [
       { 
         type: 'portfolio', 
         section: 'proyectos', 
+        x: 750, 
+        y: 450, 
+        color: '#96CEB4',
+        label: '👨‍💻'
+      },
+      { 
+        type: 'portfolio', 
+        section: 'experiencia', 
         x: 850, 
         y: 500, 
         color: '#FF6B6B',
@@ -90,33 +99,25 @@ export const GAME_CONFIG = {
       },
       { 
         type: 'portfolio', 
-        section: 'experiencia', 
-        x: 1050, 
+        section: 'habilidades', 
+        x: 850, 
         y: 350, 
         color: '#4ECDC4',
         label: '🏆'
       },
       { 
         type: 'portfolio', 
-        section: 'habilidades', 
-        x: 1250, 
-        y: 480, 
+        section: 'sobre-mi', 
+        x: 1084, 
+        y: 450, 
         color: '#45B7D1',
         label: '⚡'
       },
       { 
         type: 'portfolio', 
-        section: 'sobre-mi', 
-        x: 800, 
-        y: 450, 
-        color: '#96CEB4',
-        label: '👨‍💻'
-      },
-      { 
-        type: 'portfolio', 
         section: 'contacto', 
-        x: 1300, 
-        y: 500, 
+        x: 1085, 
+        y: 310, 
         color: '#FFEAA7',
         label: '📧'
       }
