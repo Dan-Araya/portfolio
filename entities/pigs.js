@@ -65,6 +65,22 @@ export function createLargePig(x, y) {
  * @returns {Matter.Body} The portfolio pig body
  */
 export function createPortfolioPig(x, y, section, color = '#FFD700', emoji = '🐷') {
+  // Seleccionar la textura específica para cada sección
+  let textureConfig;
+  
+  if (GAME_CONFIG.textures.portfolioPigs[section]) {
+    const sectionTexture = GAME_CONFIG.textures.portfolioPigs[section];
+    // Si la textura tiene fallback, usar la textura por defecto
+    if (sectionTexture.fallback) {
+      textureConfig = GAME_CONFIG.textures.pig;
+    } else {
+      textureConfig = sectionTexture;
+    }
+  } else {
+    // Si no hay configuración específica, usar textura por defecto
+    textureConfig = GAME_CONFIG.textures.pig;
+  }
+  
   const pig = Bodies.circle(x, y, 25, {
     density: 0.002,
     friction: 0.8,
@@ -72,9 +88,9 @@ export function createPortfolioPig(x, y, section, color = '#FFD700', emoji = '�
     restitution: 0.4,
     render: { 
       sprite: {
-        texture: GAME_CONFIG.textures.pig.src,
-        xScale: GAME_CONFIG.textures.pig.scaleX,
-        yScale: GAME_CONFIG.textures.pig.scaleY
+        texture: textureConfig.src,
+        xScale: textureConfig.scaleX,
+        yScale: textureConfig.scaleY
       },
       // Fallback color if texture doesn't load
       fillStyle: color,

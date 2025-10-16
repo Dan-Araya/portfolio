@@ -10,8 +10,40 @@ export const GAME_CONFIG = {
     },
     pig: {
       src: 'img/cerdo.png',
-      scaleX: 0.3,  // Escala horizontal del cerdo
-      scaleY: 0.3   // Escala vertical del cerdo
+      scaleX: 0.3,  // Escala horizontal del cerdo por defecto
+      scaleY: 0.3   // Escala vertical del cerdo por defecto
+    },
+    // Texturas específicas para cada cerdo de portfolio
+    portfolioPigs: {
+      proyectos: {
+        src: 'img/proyects-pigs.png',
+        scaleX: 0.3,
+        scaleY: 0.3
+      },
+      experiencia: {
+        src: 'img/experience-pig.png',  // Cuando tengas la imagen
+        scaleX: 0.3,
+        scaleY: 0.3,
+        fallback: true  // Usar textura por defecto si no existe
+      },
+      habilidades: {
+        src: 'img/skills-pig.png',  // Cuando tengas la imagen
+        scaleX: 0.3,
+        scaleY: 0.3,
+        fallback: true  // Usar textura por defecto si no existe
+      },
+      'sobre-mi': {
+        src: 'img/about-pig.png',  // Cuando tengas la imagen
+        scaleX: 0.3,
+        scaleY: 0.3,
+        fallback: true  // Usar textura por defecto si no existe
+      },
+      contacto: {
+        src: 'img/contact-pig.png',  // Cuando tengas la imagen
+        scaleX: 0.3,
+        scaleY: 0.3,
+        fallback: true  // Usar textura por defecto si no existe
+      }
     }
   },
   world: {
