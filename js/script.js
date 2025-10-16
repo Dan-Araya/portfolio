@@ -96,7 +96,7 @@ const slingState = createSling(world);
 attachMouse(engine, render, world, slingState);
 
 // Setup collision systems
-setupBoundsReset(engine, slingState);
+setupBoundsReset(engine, slingState); // Detecta límites pero no resetea automáticamente
 setupPortfolioCollisions(engine, portfolioPigs);
 
 // Setup portfolio navigation

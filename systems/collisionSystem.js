@@ -10,7 +10,10 @@ let portfolioState = {
 };
 
 export function setupBoundsReset(engine, slingState) {
-  const resetDelayMs = GAME_CONFIG.sling.resetDelayMs;
+  // Sistema de detección de límites desactivado
+  // En el futuro se implementará un sistema de múltiples pájaros
+  // donde cada pájaro se consume al ser lanzado sin respawn automático
+  
   const xMin = -50;
   const xMax = GAME_CONFIG.width + 50;
   const yMax = GAME_CONFIG.height + 50;
@@ -18,7 +21,9 @@ export function setupBoundsReset(engine, slingState) {
   Events.on(engine, 'afterUpdate', () => {
     const p = slingState.projectile.position;
     if (p.x > xMax || p.x < xMin || p.y > yMax) {
-      setTimeout(() => slingState.reset(), resetDelayMs);
+      // Solo log para debug, sin reset automático
+      console.log('🐦 Pájaro salió de los límites del juego');
+      // TODO: Aquí se implementará la lógica para pasar al siguiente pájaro
     }
   });
 }
